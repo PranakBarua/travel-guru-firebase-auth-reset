@@ -1,0 +1,33 @@
+.home{
+    height: 700px;
+    background-position: center center;
+    background-size: 100% 100%;
+}
+.home .logo{
+    height: 30px;
+    color: white;
+}
+.title-container{
+    
+    text-align: center;
+    font-size: 2em;
+}
+.nav{
+    margin-left: 50px;
+    padding-top: 50px;
+}
+.nav li{
+    display: inline-block;
+    margin-left: 20px;
+
+  }
+  .nav a{
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+  }
+  .color-btn{
+      padding: 3px 15px;
+      background-color: tomato;
+      border-radius: 10px;
+  }
