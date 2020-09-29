@@ -1,0 +1,11 @@
+.search-container{
+    display: flex;
+}
+.detail-container{
+    width: 50%;
+    border-right: 1px solid gray;
+}
+p{
+    font-size: 12px;
+    color: gray;
+}

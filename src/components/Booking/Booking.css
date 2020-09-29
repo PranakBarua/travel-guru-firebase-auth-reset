@@ -1,0 +1,24 @@
+.full-side{
+    display: flex;
+    color: white;
+    margin-top: 200px;
+    margin-left: 100px;
+
+}
+.left-side{
+    width: 30%;
+    margin-left: 20px;
+    margin-right: 100px;
+}
+.description-txt{
+    color: white;
+    text-align: justify;
+}
+.right-side{
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+.right-side label{
+    color: black;
+}

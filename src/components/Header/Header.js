@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
+import './Header.css'
 import logo from '../../Icon/Logo.png';
-import header from '../../Image/Rectangle1.png';
-import SinglePlace from '../SinglePlace/SinglePlace';
-import fakeData from '../../fakeDataPlace'
 import { UserContext } from '../../App';
-const Home = () => {
+const Header = () => {
     const [loggedInUser,setLoggedInUser]=useContext(UserContext)
     return (
-        <div style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(${header})` }} className="home">
+
+        <div className="header">
             <nav className="nav">
                 <ul>
                     <li>
@@ -25,29 +23,24 @@ const Home = () => {
                         <Link to="/home">News</Link>
                     </li>
                     <li>
-                        <Link to="/home">Destination</Link>
+                        <Link to="/login">Destination</Link>
                     </li>
                     <li>
-                        <Link to="/home">Blog</Link>
+                        <Link to="/login">Blog</Link>
                     </li>
                     <li>
-                        <Link to="/home">Contact</Link>
+                        <Link to="/login">Contact</Link>
                     </li>
                     <li>
                         {
                             loggedInUser.isSigned?<button className="color-btn">{loggedInUser.name}</button>:
                             <Link to="/login"><button className="color-btn">Log in</button></Link>
-                        }
+                        }       
                     </li>
                 </ul>
             </nav>
-            <div>
-                {
-                    fakeData.map(place=><SinglePlace place={place}></SinglePlace>)
-                }
-            </div>
         </div>
     );
 };
 
-export default Home;
+export default Header;

@@ -1,0 +1,22 @@
+.img-part img{
+    height: 160px;
+    width: 200px;
+    margin-right: 15px;
+}
+.room-detail{
+    margin-bottom: 30px;
+    display: flex;
+}
+.star-img{
+    height:15px
+}
+.star-display{
+    display: flex;
+}
+.highlight{
+    font-weight: bold;
+    color: black;
+}
+.disable{
+    color: lightgray;
+}
