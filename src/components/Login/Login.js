@@ -7,6 +7,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import fbImg from '../../Icon/fb.png'
 import googleImg from '../../Icon/google.png'
 import { UserContext } from '../../App';
+import Header from '../Header/Header';
 const Login = () => {
     if(firebase.apps.length===0){
         firebase.initializeApp(firebaseConfig)
@@ -39,6 +40,8 @@ const Login = () => {
         const UserInfo={
             isSigned:true,
             name:displayName,
+            success:true,
+            error:'',
             email:email,
             photo:photoURL,
         }
@@ -52,7 +55,7 @@ const Login = () => {
         const UserInfo={...user}
         UserInfo.success=false
         UserInfo.error=errorMessage
-        setUser(user)
+        setUser(UserInfo)
         setLoggedInUser(UserInfo)
       });
     }
@@ -76,10 +79,12 @@ const Login = () => {
         console.log(result)
       })
       .catch(error=> {
-        var errorCode = error.code;
         var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
+        const UserInfo={...user}
+        UserInfo.success=false
+        UserInfo.error=errorMessage
+        setUser(UserInfo)
+        setLoggedInUser(UserInfo)
         console.log(errorMessage)
       });
     }
@@ -130,11 +135,13 @@ const Login = () => {
                 UserInfo.isConfirmPassExist=false
                 UserInfo.isSigned=true
                 UserInfo.error=''
+                UserInfo.name=res.user.displayName
                 UserInfo.isSignedIn=true
                 setUser(UserInfo)
-                setNewUser(user)
-                sendDataToFirebase(user)
+                setNewUser(UserInfo)
+                // sendDataToFirebase(UserInfo)
                 setLoggedInUser(UserInfo)
+                history.replace(from);
             })
             .catch(error=> {
                 var errorMessage = error.message;
@@ -153,12 +160,14 @@ const Login = () => {
                 UserInfo.success=true
                 UserInfo.isConfirmPassExist=false
                 UserInfo.error=''
+                UserInfo.isSignedIn=true
+                UserInfo.name=res.user.displayName
                 UserInfo.isSigned=true
                 setUser(UserInfo)
-                setNewUser(user)
+                setNewUser(UserInfo)
+                // sendDataToFirebase(UserInfo)
                 setLoggedInUser(UserInfo)
-                history.replace(from);
-                console.log(user)
+                
             })
             .catch(function(error) {
                 var errorMessage = error.message;
@@ -168,38 +177,45 @@ const Login = () => {
                 setUser(UserInfo)
                 setLoggedInUser(UserInfo)
             });
+            history.replace(from);
         }
         e.preventDefault();
     }
-    const sendDataToFirebase=(user)=>{
-        firebase.auth().onAuthStateChanged(function(user) {
+  //   const sendDataToFirebase=(user)=>{
+  //       firebase.auth().onAuthStateChanged(function(user) {
 
-          if (user) {
+  //         if (user) {
 
-            // Updates the user attributes:
+  //           // Updates the user attributes:
 
-            user.updateProfile({ // <-- Update Method here
+  //           user.updateProfile({ // <-- Update Method here
 
-              displayName: user.firstName
+  //             displayName: user.firstName
 
-            }).then(function() {
+  //           }).then(function() {
 
-              // Profile updated successfully!
-              //  "NEW USER NAME"
+  //             // Profile updated successfully!
+  //             //  "NEW USER NAME"
 
-              var displayName = user.firstName;
-              newUser.firstName=displayName
-              setNewUser(newUser)
-              // "https://example.com/jane-q-user/profile.jpg"
+  //             var displayName = user.firstName;
+  //             user.firstName=displayName
+  //             setUser(user)
+  //             setNewUser(user)
+  //             console.log(user)
+  //             // "https://example.com/jane-q-user/profile.jpg"
 
-            }, function(error) {
-              // An error happened.
-            });     
+  //           }, function(error) {
+  //             // An error happened.
+  //           });     
 
-          }
-     });
-  }
+  //         }
+  //    });
+  // }
     return (
+      <div>
+        <div>
+          <Header></Header>
+        </div>
         <div className="login-form">
           <p>name:{newUser.name}</p>
             <form onSubmit={handleSubmit}>
@@ -243,7 +259,11 @@ const Login = () => {
             {
               user.isConfirmPassExist && <p style={{color:'red'}}>Password and Confirm password are not same</p>
             }
-            {/* {user.success && <h1 style={{color:'green'}}>User {newUser.isSigned?'created':'LoggedIn'} successfully</h1>} */}
+            {loggedInUser.success ? <h3 style={{color:'green'}}>User {newUser.isSigned?'created':'LoggedIn'} successfully</h3>:
+                    <h3 style={{color:'red'}}>{loggedInUser.error
+                    }</h3>
+            }
+        </div>
         </div>
     );
 };

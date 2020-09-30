@@ -4,3 +4,6 @@
     width: 20%;
     display: inline-block;
 }
+.card-container:hover{
+    box-shadow: 10px 10px 40px white;
+}

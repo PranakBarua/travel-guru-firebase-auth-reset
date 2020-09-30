@@ -8,7 +8,6 @@ import {
   Link
 } from "react-router-dom";
 import Home from './components/Home/Home';
-import Places from './components/Places/Places';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
 import Search from './components/Search/Search';
@@ -26,7 +25,6 @@ function App() {
     <UserContext.Provider value={[loggedInUser,setLoggedInUser]}>
       <h1>{loggedInUser.name}</h1>
       <Router>
-        <Header></Header>
         <Switch>
         <Route path="/home">
             <Home></Home>
@@ -35,7 +33,6 @@ function App() {
             <Search></Search>
           </PrivateRoute>
           <Route path="/login">
-            <Header></Header>
             <Login></Login>
           </Route>
           <Route path="/booking/:placeId">

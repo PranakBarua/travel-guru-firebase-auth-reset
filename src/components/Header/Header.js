@@ -33,7 +33,7 @@ const Header = () => {
                     </li>
                     <li>
                         {
-                            loggedInUser.isSigned?<button className="color-btn">{loggedInUser.name}</button>:
+                            loggedInUser.isSigned?<button className="color-btn">{loggedInUser.name?loggedInUser.name:loggedInUser.email}</button>:
                             <Link to="/login"><button className="color-btn">Log in</button></Link>
                         }       
                     </li>

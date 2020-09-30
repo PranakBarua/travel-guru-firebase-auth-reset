@@ -22,10 +22,14 @@ const Booking = () => {
     const {placeId}=useParams()
     const place=fakeDataPlace.find(pl=>pl.id===placeId)
     const {name,description}=place
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedDate1, setSelectedDate1] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedDate2, setSelectedDate2] = React.useState(new Date('2014-08-18T21:11:54'));
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const handleDateChangeFrom = (date) => {
+        setSelectedDate1(date);
+    };
+    const handleDateChangeTo = (date) => {
+        setSelectedDate2(date);
     };
     return (
         <div style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url(${header})` }} className="home">
@@ -54,8 +58,8 @@ const Booking = () => {
                     </li>
                     <li>
                         {
-                            loggedInUser.isSigned?<button className="color-btn">{loggedInUser.name}</button>:
-                            <Link to="/login"><button className="color-btn">Log in</button></Link>
+                           loggedInUser.isSigned?<button className="color-btn">{loggedInUser.name?loggedInUser.name:loggedInUser.email}</button>:
+                           <Link to="/login"><button className="color-btn">Log in</button></Link>
                         }
                     </li>
                 </ul>
@@ -71,15 +75,15 @@ const Booking = () => {
                             <label>
                                 Origin:
                                 <br/>
-                                <input name="name" defaultValue={loggedInUser.name} ref={register({ required: true })}/>
-                                {errors.name && <span className="error">name is required</span>}
+                                <input name="origin" ref={register({ required: true })}/>
+                                {errors.origin && <span className="error">Origin is required</span>}
                             </label>
                             <br/>
                            <label>
                                Destination:
                                <br/>
-                                <input name="email" defaultValue={loggedInUser.email} ref={register({ required: true })}/>
-                                {errors.email && <span className="error">Email is required</span>}
+                                <input name="destination" ref={register({ required: true })}/>
+                                {errors.destination && <span className="error">Destination is required</span>}
                            </label>
                            <br/>
                             <div style={{display:"flex"}}>
@@ -91,17 +95,17 @@ const Booking = () => {
                                             variant="inline"
                                             format="MM/dd/yyyy"
                                             margin="normal"
-                                            id="date-picker-inline"
+                                            id="date-picker-inline-From"
                                             label="From:"
-                                            value={selectedDate}
-                                            onChange={handleDateChange}
+                                            value={selectedDate1}
+                                            onChange={handleDateChangeFrom}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
                                             />
                                    
                                         </Grid>
-                                        </MuiPickersUtilsProvider>
+                                </MuiPickersUtilsProvider>
 
                             </label>
                             <br/>
@@ -113,17 +117,17 @@ const Booking = () => {
                                             variant="inline"
                                             format="MM/dd/yyyy"
                                             margin="normal"
-                                            id="date-picker-inline"
+                                            id="date-picker-inline-To"
                                             label="To:"
-                                            value={selectedDate}
-                                            onChange={handleDateChange}
+                                            value={selectedDate2}
+                                            onChange={handleDateChangeTo}
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
                                             />
                                    
                                         </Grid>
-                                        </MuiPickersUtilsProvider>
+                                </MuiPickersUtilsProvider>
 
                             </label>
                             </div>
